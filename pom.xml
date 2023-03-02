@@ -20,6 +20,8 @@
         <mockito.version>5.1.1</mockito.version>
         <mapstruct.version>1.5.3.Final</mapstruct.version>
         <flyway.version>9.8.1</flyway.version>
+        <openapi.version>1.6.14</openapi.version>
+        <open-api.version>2.0.2</open-api.version>
     </properties>
     <dependencies>
         <!--dependency>
@@ -80,7 +82,16 @@
             <version>${flyway.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${open-api.version}</version>
+        </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -105,6 +116,17 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>com.example.w2m.W2mApplication</mainClass>
+                            <outputDirectory>${project.basedir}/docker</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>

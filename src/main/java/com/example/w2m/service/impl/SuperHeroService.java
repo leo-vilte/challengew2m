@@ -6,6 +6,8 @@ import com.example.w2m.mapper.HeroMapper;
 import com.example.w2m.model.SuperHero;
 import com.example.w2m.repository.SuperHeroRepository;
 import com.example.w2m.service.ISuperHeroService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,7 @@ public class SuperHeroService implements ISuperHeroService {
     }
 
     @Override
+    @Cacheable("heroes")
     public List<SuperHero> getAll() {
         return repository
                 .findAll()
@@ -41,6 +44,7 @@ public class SuperHeroService implements ISuperHeroService {
     }
 
     @Override
+    @Cacheable("heroes")
     public List<SuperHero> findByName(String name) {
         return repository
                 .getHeroesByNameContainsIgnoreCase(name)
@@ -50,6 +54,7 @@ public class SuperHeroService implements ISuperHeroService {
     }
 
     @Override
+    @CacheEvict(value = "heroes", allEntries = true)
     public Long create(SuperHero hero) throws HeroExistedException {
         try {
             return repository
@@ -61,6 +66,7 @@ public class SuperHeroService implements ISuperHeroService {
     }
 
     @Override
+    @CacheEvict(value = "heroes", allEntries = true)
     public SuperHero update(SuperHero hero) throws HeroNotFoundException {
         if (repository.existsById(hero.getID())) {
             return mapper
@@ -74,6 +80,7 @@ public class SuperHeroService implements ISuperHeroService {
     }
 
     @Override
+    @CacheEvict(value = "heroes", allEntries = true)
     public void deleteById(long id) throws HeroNotFoundException {
         repository.deleteById(id);
     }
