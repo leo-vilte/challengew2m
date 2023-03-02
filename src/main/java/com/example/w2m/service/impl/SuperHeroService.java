@@ -76,6 +76,5 @@ public class SuperHeroService implements ISuperHeroService {
     @Override
     public void deleteById(long id) throws HeroNotFoundException {
         repository.deleteById(id);
-
     }
 }
