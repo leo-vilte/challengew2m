@@ -1,5 +1,6 @@
 package com.example.w2m.controller;
 
+import com.example.w2m.annotation.LoggingTime;
 import com.example.w2m.exception.HeroExistedException;
 import com.example.w2m.exception.HeroNotFoundException;
 import com.example.w2m.model.SuperHero;
@@ -23,6 +24,7 @@ public class SuperHeroController {
     }
 
     @GetMapping
+    @LoggingTime
     public ResponseEntity<List<SuperHero>> get(@RequestParam(name = "name", required = false) String name) {
         if(name != null) {
             return ResponseEntity.ok(service.findByName(name));
