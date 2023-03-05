@@ -1,4 +1,4 @@
-# challenge
+# Challenge
 Challenge para W2M
 
 Se expone una api rest para gestion de superheroes.
