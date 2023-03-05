@@ -3,8 +3,6 @@ package com.example.w2m.controller.impl;
 import com.example.w2m.annotation.LoggingTime;
 import com.example.w2m.controller.ISuperheroController;
 import com.example.w2m.dto.SuperheroDTO;
-import com.example.w2m.exception.HeroExistedException;
-import com.example.w2m.exception.HeroNotFoundException;
 import com.example.w2m.mapper.HeroMapper;
 import com.example.w2m.model.SuperHero;
 import com.example.w2m.service.ISuperHeroService;
@@ -37,14 +35,12 @@ public class SuperHeroController implements ISuperheroController {
 
     @Override
     public ResponseEntity<SuperHero> getById(@PathVariable Long id) {
-        return service.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok(service.findById(id));
     }
 
     @Override
     @LoggingTime
-    public ResponseEntity<String> create(@RequestBody(required = false) SuperheroDTO superHero) throws HeroExistedException {
+    public ResponseEntity<String> create(@RequestBody(required = false) SuperheroDTO superHero) {
         return ResponseEntity.created(
                 URI.create(ServletUriComponentsBuilder
                         .fromCurrentRequestUri()
@@ -55,14 +51,14 @@ public class SuperHeroController implements ISuperheroController {
     }
 
     @Override
-    public ResponseEntity<SuperHero> update(@RequestBody SuperheroDTO superHero, @PathVariable(name = "id") Long id) throws HeroNotFoundException {
+    public ResponseEntity<SuperHero> update(@RequestBody SuperheroDTO superHero, @PathVariable(name = "id") Long id) {
         var hero = heroMapper.dtoToModel(superHero);
         hero.setId(id);
         return ResponseEntity.ok(service.update(hero));
     }
 
     @Override
-    public void delete(@PathVariable Long id) throws HeroNotFoundException {
+    public void delete(@PathVariable Long id) {
         service.deleteById(id);
     }
 

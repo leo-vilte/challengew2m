@@ -10,13 +10,13 @@ import java.util.Optional;
 public interface ISuperHeroService {
     List<SuperHero> getAll();
 
-    Optional<SuperHero> findById(Long i);
+    SuperHero findById(Long i);
 
     List<SuperHero> findByName(String man);
 
-    Long create(SuperHero hero) throws HeroExistedException;
+    Long create(SuperHero hero);
 
-    SuperHero update(SuperHero hero) throws HeroNotFoundException;
+    SuperHero update(SuperHero hero);
 
-    void deleteById(long i) throws HeroNotFoundException;
+    void deleteById(long i);
 }

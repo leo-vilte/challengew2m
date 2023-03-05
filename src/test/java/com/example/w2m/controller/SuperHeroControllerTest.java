@@ -51,7 +51,7 @@ class SuperHeroControllerTest {
     }
 
     @Test
-    void should_create_one_superHero() throws Exception {
+    void should_create_one_superhero() throws Exception {
         final var superHero = new SuperHero();
         superHero.setName("Robin");
 
@@ -66,6 +66,22 @@ class SuperHeroControllerTest {
                 .andExpect(status().isCreated());
 
         assertThat(this.service.getAll()).hasSize(11);
+    }
+    @Test
+    void when_create_one_superhero_with_exists_name_throw_error() throws Exception {
+        final var superHero = new SuperHero();
+        superHero.setName("Batman");
+
+        final String heroToCreate = new ObjectMapper().writeValueAsString(superHero);
+
+        this.mockMvc.perform(post("/superheros")
+                        .header(HttpHeaders.AUTHORIZATION, getToken())
+                        .contentType(APPLICATION_JSON)
+                        .content(heroToCreate))
+
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+
     }
 
     @Test

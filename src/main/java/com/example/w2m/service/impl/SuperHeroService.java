@@ -37,10 +37,11 @@ public class SuperHeroService implements ISuperHeroService {
     }
 
     @Override
-    public Optional<SuperHero> findById(Long i) {
+    public SuperHero findById(Long i) {
         return repository
                 .findById(i)
-                .map(mapper::toModel);
+                .map(mapper::toModel)
+                .orElseThrow(HeroNotFoundException::new);
     }
 
     @Override
@@ -55,7 +56,7 @@ public class SuperHeroService implements ISuperHeroService {
 
     @Override
     @CacheEvict(value = "heroes", allEntries = true)
-    public Long create(SuperHero hero) throws HeroExistedException {
+    public Long create(SuperHero hero) {
         try {
             return repository
                     .save(mapper.toEntity(hero))
@@ -67,7 +68,7 @@ public class SuperHeroService implements ISuperHeroService {
 
     @Override
     @CacheEvict(value = "heroes", allEntries = true)
-    public SuperHero update(SuperHero hero) throws HeroNotFoundException {
+    public SuperHero update(SuperHero hero) {
         if (repository.existsById(hero.getId())) {
             return mapper
                     .toModel(
@@ -81,7 +82,7 @@ public class SuperHeroService implements ISuperHeroService {
 
     @Override
     @CacheEvict(value = "heroes", allEntries = true)
-    public void deleteById(long id) throws HeroNotFoundException {
+    public void deleteById(long id) {
         repository.deleteById(id);
     }
 }

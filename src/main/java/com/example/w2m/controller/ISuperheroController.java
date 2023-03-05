@@ -1,13 +1,10 @@
 package com.example.w2m.controller;
 
 import com.example.w2m.dto.SuperheroDTO;
-import com.example.w2m.exception.HeroExistedException;
-import com.example.w2m.exception.HeroNotFoundException;
 import com.example.w2m.model.SuperHero;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
-import io.swagger.v3.oas.annotations.headers.Header;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -38,6 +35,9 @@ public interface ISuperheroController {
                 @ApiResponse(responseCode = "200", description = "Successfully retrieved",
                         content =  @Content( mediaType = "application/json",array = @ArraySchema(schema = @Schema(implementation = SuperHero.class)))
                 ),
+                @ApiResponse(responseCode = "403", description = "Invalid Credentials",
+                        content = @Content(schema = @Schema())
+                ),
                 @ApiResponse(responseCode = "500", description = "Internal Error",
                         content = @Content(schema = @Schema())
                 )
@@ -51,6 +51,9 @@ public interface ISuperheroController {
             responses = {
                     @ApiResponse(responseCode = "200", description = "Successfully retrieved",
                             content =  @Content( mediaType = "application/json",schema = @Schema(implementation = SuperHero.class))
+                    ),
+                    @ApiResponse(responseCode = "403", description = "Invalid Credentials",
+                            content = @Content(schema = @Schema())
                     ),
                     @ApiResponse(responseCode = "404", description = "Hero not Found",
                             content = @Content(schema = @Schema())
@@ -72,12 +75,15 @@ public interface ISuperheroController {
                     @ApiResponse(responseCode = "400", description = "Hero already Exits",
                             content = @Content(schema = @Schema())
                     ),
+                    @ApiResponse(responseCode = "403", description = "Invalid Credentials",
+                            content = @Content(schema = @Schema())
+                    ),
                     @ApiResponse(responseCode = "500", description = "Internal Error",
                             content = @Content(schema = @Schema())
                     )
             }
     )
-    ResponseEntity<String> create(@RequestBody(required = false) SuperheroDTO superHero) throws HeroExistedException;
+    ResponseEntity<String> create(@RequestBody SuperheroDTO superHero);
 
     @PutMapping("/{id}")
     @SecurityRequirement(name = "Bearer Authentication")
@@ -85,6 +91,9 @@ public interface ISuperheroController {
             responses = {
                     @ApiResponse(responseCode = "200", description = "Superhero updated",
                             content =  @Content(schema = @Schema())
+                    ),
+                    @ApiResponse(responseCode = "403", description = "Invalid Credentials",
+                            content = @Content(schema = @Schema())
                     ),
                     @ApiResponse(responseCode = "404", description = "Hero not found",
                             content = @Content(schema = @Schema())
@@ -94,7 +103,7 @@ public interface ISuperheroController {
                     )
             }
     )
-    ResponseEntity<SuperHero> update(@RequestBody SuperheroDTO superHero, @PathVariable Long id) throws HeroNotFoundException;
+    ResponseEntity<SuperHero> update(@RequestBody SuperheroDTO superHero, @PathVariable Long id);
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
@@ -104,6 +113,9 @@ public interface ISuperheroController {
                     @ApiResponse(responseCode = "200", description = "Superhero deleted",
                             content =  @Content(schema = @Schema())
                     ),
+                    @ApiResponse(responseCode = "403", description = "Invalid Credentials",
+                            content = @Content(schema = @Schema())
+                    ),
                     @ApiResponse(responseCode = "404", description = "Hero not found",
                             content = @Content(schema = @Schema())
                     ),
@@ -112,5 +124,5 @@ public interface ISuperheroController {
                     )
             }
     )
-    void delete(@PathVariable Long id) throws HeroNotFoundException;
+    void delete(@PathVariable Long id);
 }

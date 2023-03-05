@@ -66,17 +66,15 @@ public class SuperHeroServiceTest {
 
         Mockito.when(repository.findById(8L)).thenReturn(Optional.of(hero));
 
-        Optional<SuperHero> superHero = service.findById(8L);
-        assertTrue(superHero.isPresent());
-        assertEquals("Superman", superHero.get().getName());
+        SuperHero superHero = service.findById(8L);
+        assertEquals("Superman", superHero.getName());
     }
 
     @Test
     public void findById_NotFound() {
         Mockito.when(repository.findById(200L)).thenReturn(Optional.empty());
 
-        Optional<SuperHero> superHero = service.findById(200L);
-        assertFalse(superHero.isPresent());
+        assertThrows(HeroNotFoundException.class, () -> service.findById(200L));
     }
 
     @Test
@@ -114,7 +112,7 @@ public class SuperHeroServiceTest {
     }
 
     @Test
-    public void create_OK() {
+    public void when_created_a_superhero_not_existed_does_not_throw_exception() {
         SuperHero hero = new SuperHero("Robin");
 
         Mockito.when(repository.save(Mockito.any())).thenReturn(mapper.toEntity(hero));
@@ -123,7 +121,7 @@ public class SuperHeroServiceTest {
     }
 
     @Test
-    public void create_ERROR_duplicated_name() {
+    public void when_superhero_name_already_exists_throw_error() {
         SuperHero hero = new SuperHero("Batman");
 
         Mockito.when(repository.save(Mockito.any())).thenThrow(new DataIntegrityViolationException("Exception"));
@@ -132,7 +130,7 @@ public class SuperHeroServiceTest {
     }
 
     @Test
-    public void update_OK() {
+    public void when_update_superhero_existed_return_ok_and_modify_name() {
         var newName = "Spiderman2";
 
         SuperHero hero = new SuperHero(newName);
@@ -145,11 +143,11 @@ public class SuperHeroServiceTest {
         service.update(hero);
 
         var updatedHero = service.findById(2L);
-        assertEquals(newName, updatedHero.get().getName());
+        assertEquals(newName, updatedHero.getName());
     }
 
     @Test
-    public void update_ERROR_ID_notFound() {
+    public void when_try_update_superhero_with_not_exists_id_throw_error() {
         var newName = "Spiderman2";
         SuperHero hero = new SuperHero(newName);
         hero.setId(20L);
