@@ -15,11 +15,12 @@ public class AspectConfig {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Around("@annotation(com.example.w2m.annotation.LoggingTime)")
-    public void Around(ProceedingJoinPoint joinPoint) throws Throwable {
+    public Object Around(ProceedingJoinPoint joinPoint) throws Throwable {
         var startTime = System.currentTimeMillis();
+        Object response = null;
 
         try {
-            joinPoint.proceed();
+            response = joinPoint.proceed();
         } catch (Throwable e) {
 
             var timeTaken = System.currentTimeMillis() - startTime;
@@ -28,6 +29,8 @@ public class AspectConfig {
         }
 
         long timeTaken = System.currentTimeMillis() - startTime;
-        logger.info("Call to {} take {} ms.", joinPoint, timeTaken);
+        logger.info("Call to {} take {} ms.", joinPoint.getSignature().getName(), timeTaken);
+
+        return response;
     }
 }

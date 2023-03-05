@@ -136,7 +136,7 @@ public class SuperHeroServiceTest {
         var newName = "Spiderman2";
 
         SuperHero hero = new SuperHero(newName);
-        hero.setId(2);
+        hero.setId(2L);
 
         Mockito.when(repository.save(Mockito.any())).thenReturn(mapper.toEntity(hero));
         Mockito.when(repository.existsById(2L)).thenReturn(Boolean.TRUE);
@@ -152,7 +152,7 @@ public class SuperHeroServiceTest {
     public void update_ERROR_ID_notFound() {
         var newName = "Spiderman2";
         SuperHero hero = new SuperHero(newName);
-        hero.setId(20);
+        hero.setId(20L);
 
         Mockito.when(repository.findById(20L)).thenReturn(Optional.empty());
 

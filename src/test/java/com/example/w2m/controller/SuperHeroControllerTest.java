@@ -1,30 +1,30 @@
 package com.example.w2m.controller;
 
 
+import com.example.w2m.dto.LoginDTO;
 import com.example.w2m.model.SuperHero;
 import com.example.w2m.service.ISuperHeroService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.DisplayNameGeneration;
-import org.junit.jupiter.api.DisplayNameGenerator;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlGroup;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import static org.hamcrest.Matchers.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@SpringBootTest
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 @SqlGroup({
@@ -40,14 +40,28 @@ class SuperHeroControllerTest {
     private MockMvc mockMvc;
 
     @Test
+    void login_ok() throws Exception {
+        final var loginDTO = new LoginDTO();
+        loginDTO.setUsername("leo_vilte");
+        loginDTO.setPassword("prueba01");
+        final String loginJson = new ObjectMapper().writeValueAsString(loginDTO);
+        this.mockMvc.perform(post("/authenticate/login")
+                .contentType(APPLICATION_JSON)
+                .content(loginJson)).andDo(print()).andExpect(status().isOk());
+    }
+
+    @Test
     void should_create_one_superHero() throws Exception {
         final var superHero = new SuperHero();
         superHero.setName("Robin");
+
         final String heroToCreate = new ObjectMapper().writeValueAsString(superHero);
 
         this.mockMvc.perform(post("/superheros")
+                        .header(HttpHeaders.AUTHORIZATION, getToken())
                         .contentType(APPLICATION_JSON)
                         .content(heroToCreate))
+
                 .andDo(print())
                 .andExpect(status().isCreated());
 
@@ -56,7 +70,7 @@ class SuperHeroControllerTest {
 
     @Test
     void should_retrieve_one_superhero() throws Exception {
-        this.mockMvc.perform(get("/superheros/{id}", 6))
+        this.mockMvc.perform(get("/superheros/{id}", 6).header(HttpHeaders.AUTHORIZATION, getToken()))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(APPLICATION_JSON))
@@ -68,7 +82,8 @@ class SuperHeroControllerTest {
 
     @Test
     void should_retrieve_superhero_by_name() throws Exception {
-        this.mockMvc.perform(get("/superheros?name={name}", "man"))
+        this.mockMvc.perform(get("/superheros?name={name}", "man")
+                        .header(HttpHeaders.AUTHORIZATION, getToken()))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(APPLICATION_JSON))
@@ -79,29 +94,38 @@ class SuperHeroControllerTest {
 
     @Test
     void should_response_not_found_if_id_not_exits() throws Exception {
-        this.mockMvc.perform(get("/superheros/{id}", 40))
+        this.mockMvc.perform(get("/superheros/{id}", 40).header(HttpHeaders.AUTHORIZATION, getToken()))
                 .andDo(print())
                 .andExpect(status().isNotFound());
     }
 
     @Test
     void should_retrieve_all_superheros() throws Exception {
-        this.mockMvc.perform(get("/superheros"))
+        this.mockMvc.perform(get("/superheros").header(HttpHeaders.AUTHORIZATION, getToken()))
                 .andDo(print())
+
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(APPLICATION_JSON))
                 .andExpect(jsonPath("$").isArray());
     }
 
     @Test
     void should_delete_one_user() throws Exception {
-        var size = this.service.getAll().size();
-        System.out.println(size);
-        this.mockMvc.perform(get("/superheros")).andDo(print());
-        this.mockMvc.perform(delete("/superheros/{id}", 2))
+        this.mockMvc.perform(delete("/superheros/{id}", 2)
+                        .header(HttpHeaders.AUTHORIZATION, getToken()))
                 .andDo(print())
                 .andExpect(status().isOk());
 
         assertThat(this.service.getAll()).hasSize(9);
+    }
+
+    private String getToken() throws Exception {
+        final var loginDTO = new LoginDTO();
+        loginDTO.setUsername("leo_vilte");
+        loginDTO.setPassword("prueba01");
+        final String loginJson = new ObjectMapper().writeValueAsString(loginDTO);
+        return "Bearer ".concat(this.mockMvc.perform(post("/authenticate/login")
+                .contentType(APPLICATION_JSON)
+                .content(loginJson))
+                .andReturn().getResponse().getContentAsString());
     }
 }

@@ -68,7 +68,7 @@ public class SuperHeroService implements ISuperHeroService {
     @Override
     @CacheEvict(value = "heroes", allEntries = true)
     public SuperHero update(SuperHero hero) throws HeroNotFoundException {
-        if (repository.existsById(hero.getID())) {
+        if (repository.existsById(hero.getId())) {
             return mapper
                     .toModel(
                         repository

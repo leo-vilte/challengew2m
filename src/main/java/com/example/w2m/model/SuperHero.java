@@ -1,8 +1,14 @@
 package com.example.w2m.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 public class SuperHero {
 
-    private Long ID;
+    @Schema( type = "number", example = "2")
+    private Long id;
+
+
+    @Schema( type = "String", example = "Superman")
     private String name;
 
     public SuperHero() {}
@@ -15,16 +21,12 @@ public class SuperHero {
         return name;
     }
 
-    public void setId(long i) {
-        this.ID = i;
+    public Long getId() {
+        return id;
     }
 
-    public Long getID() {
-        return ID;
-    }
-
-    public void setID(Long ID) {
-        this.ID = ID;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setName(String name) {

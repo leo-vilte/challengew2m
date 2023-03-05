@@ -1,11 +1,13 @@
-package com.example.w2m.controller;
+package com.example.w2m.controller.impl;
 
 import com.example.w2m.annotation.LoggingTime;
+import com.example.w2m.controller.ISuperheroController;
+import com.example.w2m.dto.SuperheroDTO;
 import com.example.w2m.exception.HeroExistedException;
 import com.example.w2m.exception.HeroNotFoundException;
+import com.example.w2m.mapper.HeroMapper;
 import com.example.w2m.model.SuperHero;
 import com.example.w2m.service.ISuperHeroService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -14,17 +16,18 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("/superheros")
-public class SuperHeroController {
+public class SuperHeroController implements ISuperheroController {
 
-    private ISuperHeroService service;
+    private final ISuperHeroService service;
+    private final HeroMapper heroMapper;
 
-    public SuperHeroController(ISuperHeroService service) {
+    public SuperHeroController(ISuperHeroService service, HeroMapper mapper) {
         this.service = service;
+        this.heroMapper = mapper;
     }
 
-    @GetMapping
     @LoggingTime
+    @Override
     public ResponseEntity<List<SuperHero>> get(@RequestParam(name = "name", required = false) String name) {
         if(name != null) {
             return ResponseEntity.ok(service.findByName(name));
@@ -32,37 +35,35 @@ public class SuperHeroController {
         return ResponseEntity.ok(service.getAll());
     }
 
-    @GetMapping("/{id}")
+    @Override
     public ResponseEntity<SuperHero> getById(@PathVariable Long id) {
         return service.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping
-    public ResponseEntity<String> create(@RequestBody(required = false) SuperHero superHero) throws HeroExistedException {
+    @Override
+    @LoggingTime
+    public ResponseEntity<String> create(@RequestBody(required = false) SuperheroDTO superHero) throws HeroExistedException {
         return ResponseEntity.created(
                 URI.create(ServletUriComponentsBuilder
                         .fromCurrentRequestUri()
                         .toUriString()
-                            .concat(String.valueOf(service.create(superHero))))
+                            .concat(String.valueOf(service.create(heroMapper.dtoToModel(superHero)))))
                 )
                 .build();
     }
 
-    @PutMapping
-    public ResponseEntity<SuperHero> update(@RequestBody SuperHero superHero) throws HeroNotFoundException {
-        return ResponseEntity.ok(service.update(superHero));
+    @Override
+    public ResponseEntity<SuperHero> update(@RequestBody SuperheroDTO superHero, @PathVariable(name = "id") Long id) throws HeroNotFoundException {
+        var hero = heroMapper.dtoToModel(superHero);
+        hero.setId(id);
+        return ResponseEntity.ok(service.update(hero));
     }
 
-    @DeleteMapping("{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @Override
     public void delete(@PathVariable Long id) throws HeroNotFoundException {
         service.deleteById(id);
     }
-
-
-
-
 
 }
