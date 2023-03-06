@@ -45,6 +45,7 @@ public class SuperHeroController implements ISuperheroController {
                 URI.create(ServletUriComponentsBuilder
                         .fromCurrentRequestUri()
                         .toUriString()
+                            .concat("/")
                             .concat(String.valueOf(service.create(heroMapper.dtoToModel(superHero)))))
                 )
                 .build();
