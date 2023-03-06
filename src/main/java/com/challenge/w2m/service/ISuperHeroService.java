@@ -1,11 +1,8 @@
-package com.example.w2m.service;
+package com.challenge.w2m.service;
 
-import com.example.w2m.exception.HeroExistedException;
-import com.example.w2m.exception.HeroNotFoundException;
-import com.example.w2m.model.SuperHero;
+import com.challenge.w2m.model.SuperHero;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ISuperHeroService {
     List<SuperHero> getAll();

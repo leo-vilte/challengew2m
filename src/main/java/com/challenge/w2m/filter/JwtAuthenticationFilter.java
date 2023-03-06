@@ -1,7 +1,7 @@
-package com.example.w2m.filter;
+package com.challenge.w2m.filter;
 
-import com.example.w2m.security.JwtComponent;
-import com.example.w2m.service.impl.UserService;
+import com.challenge.w2m.security.JwtComponent;
+import com.challenge.w2m.service.impl.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,9 +1,9 @@
-package com.example.w2m.controller;
+package com.challenge.w2m.controller;
 
 
-import com.example.w2m.dto.LoginDTO;
-import com.example.w2m.model.SuperHero;
-import com.example.w2m.service.ISuperHeroService;
+import com.challenge.w2m.dto.LoginDTO;
+import com.challenge.w2m.model.SuperHero;
+import com.challenge.w2m.service.ISuperHeroService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.*;

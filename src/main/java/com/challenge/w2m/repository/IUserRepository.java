@@ -1,6 +1,6 @@
-package com.example.w2m.repository;
+package com.challenge.w2m.repository;
 
-import com.example.w2m.entity.User;
+import com.challenge.w2m.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

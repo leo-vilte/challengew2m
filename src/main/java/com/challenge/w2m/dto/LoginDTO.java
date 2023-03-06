@@ -1,4 +1,4 @@
-package com.example.w2m.dto;
+package com.challenge.w2m.dto;
 
 public class LoginDTO {
     private String username;

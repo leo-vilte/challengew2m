@@ -1,4 +1,4 @@
-package com.example.w2m.config;
+package com.challenge.w2m.config;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;

@@ -1,8 +1,8 @@
-package com.example.w2m.controller.impl;
+package com.challenge.w2m.controller.impl;
 
-import com.example.w2m.controller.IAuthenticationController;
-import com.example.w2m.dto.LoginDTO;
-import com.example.w2m.service.impl.AuthenticateService;
+import com.challenge.w2m.controller.IAuthenticationController;
+import com.challenge.w2m.dto.LoginDTO;
+import com.challenge.w2m.service.impl.AuthenticateService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/authenticate/")
 public class AuthenticationController implements IAuthenticationController {
 
-    private AuthenticateService authenticateService;
+    private final AuthenticateService authenticateService;
 
     public AuthenticationController(AuthenticateService authenticateService) {
         this.authenticateService = authenticateService;

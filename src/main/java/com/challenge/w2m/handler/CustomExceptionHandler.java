@@ -1,8 +1,7 @@
-package com.example.w2m.handler;
+package com.challenge.w2m.handler;
 
-import com.example.w2m.exception.HeroExistedException;
-import com.example.w2m.exception.HeroNotFoundException;
-import org.springframework.http.HttpHeaders;
+import com.challenge.w2m.exception.HeroExistedException;
+import com.challenge.w2m.exception.HeroNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;

@@ -1,4 +1,4 @@
-package com.example.w2m;
+package com.challenge.w2m;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

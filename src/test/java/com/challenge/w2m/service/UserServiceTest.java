@@ -1,8 +1,8 @@
-package com.example.w2m.service;
+package com.challenge.w2m.service;
 
-import com.example.w2m.entity.User;
-import com.example.w2m.repository.IUserRepository;
-import com.example.w2m.service.impl.UserService;
+import com.challenge.w2m.repository.IUserRepository;
+import com.challenge.w2m.entity.User;
+import com.challenge.w2m.service.impl.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

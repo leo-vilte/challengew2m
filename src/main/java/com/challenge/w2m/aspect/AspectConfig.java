@@ -1,4 +1,4 @@
-package com.example.w2m.aspect;
+package com.challenge.w2m.aspect;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -12,12 +12,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AspectConfig {
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Around("@annotation(com.example.w2m.annotation.LoggingTime)")
+    @Around("@annotation(com.challenge.w2m.annotation.LoggingTime)")
     public Object Around(ProceedingJoinPoint joinPoint) throws Throwable {
         var startTime = System.currentTimeMillis();
-        Object response = null;
+        Object response;
 
         try {
             response = joinPoint.proceed();

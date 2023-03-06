@@ -1,4 +1,4 @@
-package com.example.w2m.annotation;
+package com.challenge.w2m.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

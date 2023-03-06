@@ -1,4 +1,4 @@
-package com.example.w2m.entity;
+package com.challenge.w2m.entity;
 
 
 import jakarta.persistence.*;

@@ -1,8 +1,8 @@
-package com.example.w2m.mapper;
+package com.challenge.w2m.mapper;
 
-import com.example.w2m.dto.SuperheroDTO;
-import com.example.w2m.entity.Hero;
-import com.example.w2m.model.SuperHero;
+import com.challenge.w2m.dto.SuperheroDTO;
+import com.challenge.w2m.entity.Hero;
+import com.challenge.w2m.model.SuperHero;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

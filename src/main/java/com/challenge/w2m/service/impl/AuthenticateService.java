@@ -1,10 +1,10 @@
-package com.example.w2m.service.impl;
+package com.challenge.w2m.service.impl;
 
-import com.example.w2m.dto.LoginDTO;
-import com.example.w2m.entity.Role;
-import com.example.w2m.repository.IUserRepository;
-import com.example.w2m.security.JwtComponent;
-import com.example.w2m.service.IAuthenticateService;
+import com.challenge.w2m.dto.LoginDTO;
+import com.challenge.w2m.entity.Role;
+import com.challenge.w2m.repository.IUserRepository;
+import com.challenge.w2m.security.JwtComponent;
+import com.challenge.w2m.service.IAuthenticateService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

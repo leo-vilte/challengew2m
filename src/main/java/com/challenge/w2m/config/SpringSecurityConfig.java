@@ -1,9 +1,7 @@
-package com.example.w2m.config;
+package com.challenge.w2m.config;
 
 
-import com.example.w2m.filter.JwtAuthenticationFilter;
-import com.example.w2m.security.JwtComponent;
-import com.example.w2m.service.impl.UserService;
+import com.challenge.w2m.filter.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

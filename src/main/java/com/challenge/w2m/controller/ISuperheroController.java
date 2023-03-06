@@ -1,7 +1,7 @@
-package com.example.w2m.controller;
+package com.challenge.w2m.controller;
 
-import com.example.w2m.dto.SuperheroDTO;
-import com.example.w2m.model.SuperHero;
+import com.challenge.w2m.dto.SuperheroDTO;
+import com.challenge.w2m.model.SuperHero;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;

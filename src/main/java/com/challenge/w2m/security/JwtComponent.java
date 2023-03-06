@@ -1,4 +1,4 @@
-package com.example.w2m.security;
+package com.challenge.w2m.security;
 
 
 import io.jsonwebtoken.*;
@@ -21,7 +21,7 @@ import org.slf4j.Logger;
 @Component
 public class JwtComponent {
 
-    private Logger log = LoggerFactory.getLogger(this.getClass());
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Value("${security.secret}")
     private String secret;

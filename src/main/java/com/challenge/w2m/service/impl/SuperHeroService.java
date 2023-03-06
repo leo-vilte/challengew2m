@@ -1,24 +1,23 @@
-package com.example.w2m.service.impl;
+package com.challenge.w2m.service.impl;
 
-import com.example.w2m.exception.HeroExistedException;
-import com.example.w2m.exception.HeroNotFoundException;
-import com.example.w2m.mapper.HeroMapper;
-import com.example.w2m.model.SuperHero;
-import com.example.w2m.repository.SuperHeroRepository;
-import com.example.w2m.service.ISuperHeroService;
+import com.challenge.w2m.mapper.HeroMapper;
+import com.challenge.w2m.model.SuperHero;
+import com.challenge.w2m.repository.SuperHeroRepository;
+import com.challenge.w2m.service.ISuperHeroService;
+import com.challenge.w2m.exception.HeroExistedException;
+import com.challenge.w2m.exception.HeroNotFoundException;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class SuperHeroService implements ISuperHeroService {
 
-    private SuperHeroRepository repository;
-    private HeroMapper mapper;
+    private final SuperHeroRepository repository;
+    private final HeroMapper mapper;
 
 
     public SuperHeroService(SuperHeroRepository repository, HeroMapper mapper) {

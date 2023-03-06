@@ -1,4 +1,4 @@
-package com.example.w2m.exception;
+package com.challenge.w2m.exception;
 
 public class HeroExistedException extends RuntimeException {
 }

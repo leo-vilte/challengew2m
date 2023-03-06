@@ -1,6 +1,6 @@
-package com.example.w2m.service.impl;
+package com.challenge.w2m.service.impl;
 
-import com.example.w2m.repository.IUserRepository;
+import com.challenge.w2m.repository.IUserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

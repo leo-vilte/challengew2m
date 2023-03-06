@@ -1,12 +1,13 @@
-package com.example.w2m.service;
+package com.challenge.w2m.service;
 
-import com.example.w2m.entity.Hero;
-import com.example.w2m.exception.HeroExistedException;
-import com.example.w2m.exception.HeroNotFoundException;
-import com.example.w2m.mapper.HeroMapper;
-import com.example.w2m.model.SuperHero;
-import com.example.w2m.repository.SuperHeroRepository;
-import com.example.w2m.service.impl.SuperHeroService;
+import com.challenge.w2m.repository.SuperHeroRepository;
+import com.challenge.w2m.entity.Hero;
+import com.challenge.w2m.exception.HeroExistedException;
+import com.challenge.w2m.exception.HeroNotFoundException;
+import com.challenge.w2m.mapper.HeroMapper;
+import com.challenge.w2m.model.SuperHero;
+import com.challenge.w2m.service.impl.SuperHeroService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
@@ -24,7 +25,7 @@ public class SuperHeroServiceTest {
 
     private ISuperHeroService service;
 
-    private HeroMapper mapper = Mappers.getMapper(HeroMapper.class);
+    private final HeroMapper mapper = Mappers.getMapper(HeroMapper.class);
 
     @Mock
     private SuperHeroRepository repository = Mockito.mock(SuperHeroRepository.class);
@@ -117,7 +118,7 @@ public class SuperHeroServiceTest {
 
         Mockito.when(repository.save(Mockito.any())).thenReturn(mapper.toEntity(hero));
 
-        assertDoesNotThrow(() -> service.create(hero));
+        Assertions.assertDoesNotThrow(() -> service.create(hero));
     }
 
     @Test

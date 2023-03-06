@@ -1,11 +1,11 @@
-package com.example.w2m.controller.impl;
+package com.challenge.w2m.controller.impl;
 
-import com.example.w2m.annotation.LoggingTime;
-import com.example.w2m.controller.ISuperheroController;
-import com.example.w2m.dto.SuperheroDTO;
-import com.example.w2m.mapper.HeroMapper;
-import com.example.w2m.model.SuperHero;
-import com.example.w2m.service.ISuperHeroService;
+import com.challenge.w2m.annotation.LoggingTime;
+import com.challenge.w2m.controller.ISuperheroController;
+import com.challenge.w2m.dto.SuperheroDTO;
+import com.challenge.w2m.mapper.HeroMapper;
+import com.challenge.w2m.model.SuperHero;
+import com.challenge.w2m.service.ISuperHeroService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;

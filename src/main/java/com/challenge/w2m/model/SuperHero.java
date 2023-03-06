@@ -1,4 +1,4 @@
-package com.example.w2m.model;
+package com.challenge.w2m.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

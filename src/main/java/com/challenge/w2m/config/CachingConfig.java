@@ -1,4 +1,4 @@
-package com.example.w2m.config;
+package com.challenge.w2m.config;
 
 
 import org.springframework.cache.CacheManager;
