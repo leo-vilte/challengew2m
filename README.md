@@ -10,8 +10,8 @@ Maven 3.8.1
 
 Docker
 
-# compile
-#clone project
+#Compile
+#Clone project
 
 git clone https://github.com/leo-vilte/challengew2m
 
@@ -19,16 +19,20 @@ cd challengew2m
 
 mvn clean install
 
-# deploy
+# Deploy
 mvn spring-boot:run 
 
-# run dockerfile
+# Run docker image
 cd docker
 
 docker build -t superhero-api .
 
 docker run -d -p 8080:8080 --name superhero superhero-api
 
-# pagina de swagger
+# Pagina de swagger
 
 http://localhost:8080/swagger-ui/index.html
+
+# Credencial de Prueba
+username=leo_vilte
+password=prueba01
